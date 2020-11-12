@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Button } from '@chakra-ui/core';
 
 const BaseButton = ({ children, onClick, ...rest }) => {

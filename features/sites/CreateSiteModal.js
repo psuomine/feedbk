@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { PrimaryButton, SecondaryButton } from '@/components/buttons';
 import {
   Modal,
@@ -16,9 +16,9 @@ import { TextInput, TextareaInput } from '@/components/input';
 const initState = { name: '', description: '' };
 
 const CreateSiteModal = ({ isOpen, toggleOpen }) => {
-  const [values, setValues] = useState(initState);
-  const [isNameError, setIsNameError] = useState('');
-  const [isDirty, setIsDirty] = useState(false);
+  const [values, setValues] = React.useState(initState);
+  const [isNameError, setIsNameError] = React.useState('');
+  const [isDirty, setIsDirty] = React.useState(false);
 
   const validateName = () => {
     values.name.length === 0 && isDirty ? setIsNameError('Site name is required') : setIsNameError('');

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { ChakraProvider } from '@chakra-ui/core';
 import customTheme from '../styles/theme';
 

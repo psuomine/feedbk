@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FormControl, FormLabel, Input, Box, Text } from '@chakra-ui/core';
 import { motion } from 'framer-motion';
 
@@ -21,7 +22,6 @@ const TextInput = ({ name, label, value, onChange, placeholder, required = false
       </Box>
 
       <Input
-        autoFocus={true}
         isInvalid={error}
         borderColor="border.default"
         name={name}
@@ -32,6 +32,7 @@ const TextInput = ({ name, label, value, onChange, placeholder, required = false
         boxShadow="sm"
         required
         onBlur={onBlur}
+        fontSize="md"
         backgroundColor={error ? 'error.100' : 'white'}
         _invalid={{
           borderColor: 'error.500',

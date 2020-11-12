@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Textarea, FormControl, FormLabel } from '@chakra-ui/core';
 
 const TextareaInput = ({ name, label, value, onChange, placeholder }) => {
@@ -10,6 +11,7 @@ const TextareaInput = ({ name, label, value, onChange, placeholder }) => {
         resize="none"
         borderRadius="6px"
         borderColor="border.default"
+        fontSize="md"
         name={name}
         id={name}
         value={value}

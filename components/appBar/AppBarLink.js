@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Box, Link } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';

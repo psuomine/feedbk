@@ -1,3 +1,4 @@
+import * as React from 'react';
 import BaseButton from './BaseButton';
 
 const SecondaryButton = ({ onClick, children, ...rest }) => {

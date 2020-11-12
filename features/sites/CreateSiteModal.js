@@ -13,26 +13,34 @@ import {
 } from '@chakra-ui/core';
 import { TextInput, TextareaInput } from '@/components/input';
 
-const initState = { name: '', description: '' };
+const initialState = { name: '', description: '', isDirty: false, error: '' };
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'INPUT_VALUE_CHANGE': {
+      return { ...state, [action.name]: action.value, isDirty: true };
+    }
+    case 'SET_NAME_INPUT_ERROR': {
+      return { ...state, error: action.error };
+    }
+    case 'RESET': {
+      return { ...initialState };
+    }
+  }
+};
 
 const CreateSiteModal = ({ isOpen, toggleOpen }) => {
-  const [values, setValues] = React.useState(initState);
-  const [isNameError, setIsNameError] = React.useState('');
-  const [isDirty, setIsDirty] = React.useState(false);
+  const [{ name, description, isDirty, error }, dispatch] = React.useReducer(reducer, initialState);
 
   const validateName = () => {
-    values.name.length === 0 && isDirty ? setIsNameError('Site name is required') : setIsNameError('');
+    const error = name.length === 0 && isDirty ? 'Site name is required' : '';
+    dispatch({ type: 'SET_NAME_INPUT_ERROR', error });
   };
 
-  const onValueChange = ({ target: { name, value } }) => {
-    setIsDirty(true);
-    setValues({ ...values, [name]: value });
-  };
+  const onValueChange = ({ target: { name, value } }) => dispatch({ type: 'INPUT_VALUE_CHANGE', name, value });
 
   const onClose = () => {
-    setValues(initState);
-    setIsNameError('');
-    setIsDirty(false);
+    dispatch({ type: 'RESET' });
     toggleOpen();
   };
 
@@ -53,21 +61,21 @@ const CreateSiteModal = ({ isOpen, toggleOpen }) => {
           <TextInput
             name="name"
             label="Site name"
-            value={values.name}
+            value={name}
             required
             onChange={onValueChange}
-            error={isNameError ? 'Site name is required' : ''}
+            error={error ? error : ''}
             onBlur={validateName}
           />
           <Box mt={4}>
-            <TextareaInput name="description" label="Description" value={values.description} onChange={onValueChange} />
+            <TextareaInput name="description" label="Description" value={description} onChange={onValueChange} />
           </Box>
         </ModalBody>
         <ModalFooter backgroundColor="bg.gray.100" p={6}>
           <SecondaryButton mr={6} onClick={onClose}>
             Cancel
           </SecondaryButton>
-          <PrimaryButton disabled={!isDirty || values.name.length === 0} type="submit">
+          <PrimaryButton disabled={!isDirty || name.length === 0} type="submit">
             Add this site
           </PrimaryButton>
         </ModalFooter>

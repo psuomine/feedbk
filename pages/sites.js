@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { PrimaryButton } from "@/components/buttons";
-import { Layout } from "@/components/layout";
-import { Text, Box } from "@chakra-ui/core";
-import CreateSiteModal from "@/features/sites/CreateSiteModal";
+import * as React from 'react';
+import { PrimaryButton } from '@/components/buttons';
+import { Layout } from '@/components/layout';
+import { Text, Box } from '@chakra-ui/core';
+import CreateSiteModal from '@/features/sites/CreateSiteModal';
 
-const sites = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Sites = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const toggleModalOpen = () => setIsModalOpen(!isModalOpen);
 
@@ -25,4 +25,4 @@ const sites = () => {
   );
 };
 
-export default sites;
+export default Sites;

@@ -1,6 +1,7 @@
-import { Box, Link } from "@chakra-ui/core";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
+import * as React from 'react';
+import { Box, Link } from '@chakra-ui/core';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 const AppBarLink = ({ to, children }) => {
   const { pathname } = useRouter();
@@ -14,22 +15,22 @@ const AppBarLink = ({ to, children }) => {
       px="3"
       py="2"
       borderRadius="md"
-      bg={isActive ? "bg.gray.900" : "bg.gray.800"}
+      bg={isActive ? 'bg.gray.900' : 'bg.gray.800'}
       ml="4"
       d="flex"
       justifyContent="center"
       _hover={{
-        backgroundColor: "bg.gray.700",
+        backgroundColor: 'bg.gray.700'
       }}
     >
       <NextLink href={to} passHref>
         <Link
-          color={isActive ? "white" : "text.gray.300"}
+          color={isActive ? 'white' : 'text.gray.300'}
           fontSize="sm"
           fontWeight="medium"
           letterSpacing="wide"
-          _hover={{ color: "white" }}
-          _focus={{ boxShadow: "none" }}
+          _hover={{ color: 'white' }}
+          _focus={{ boxShadow: 'none' }}
         >
           {children}
         </Link>

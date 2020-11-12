@@ -1,15 +1,10 @@
-import AppBarLink from "./AppBarLink";
-import { Box, Text, Grid } from "@chakra-ui/core";
+import * as React from 'react';
+import AppBarLink from './AppBarLink';
+import { Box, Text, Grid } from '@chakra-ui/core';
 
 const AppBar = () => {
   return (
-    <Grid
-      width="100%"
-      alignItems="center"
-      h="64px"
-      templateColumns="1fr 1024px 1fr"
-      bg="bg.gray.800"
-    >
+    <Grid width="100%" alignItems="center" h="64px" templateColumns="1fr 1024px 1fr" bg="bg.gray.800">
       <Text ml="8" color="white" fontSize="2xl" fontWeight="bold">
         Feedbäk
       </Text>

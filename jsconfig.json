@@ -1,16 +1,10 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/components/*": [
-                "components/*"
-            ],
-            "@/features/*": [
-                "features/*"
-            ],
-            "@/utils/*": [
-                "utils/*"
-            ]
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/features/*": ["features/*"],
+      "@/utils/*": ["utils/*"]
     }
+  }
 }

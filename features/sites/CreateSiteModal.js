@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { PrimaryButton, SecondaryButton } from "@/components/buttons";
+import { useState } from 'react';
+import { PrimaryButton, SecondaryButton } from '@/components/buttons';
 import {
   Modal,
   ModalOverlay,
@@ -9,21 +9,19 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
-  Box,
-} from "@chakra-ui/core";
-import { TextInput, TextareaInput } from "@/components/input";
+  Box
+} from '@chakra-ui/core';
+import { TextInput, TextareaInput } from '@/components/input';
 
-const initState = { name: "", description: "" };
+const initState = { name: '', description: '' };
 
 const CreateSiteModal = ({ isOpen, toggleOpen }) => {
   const [values, setValues] = useState(initState);
-  const [isNameError, setIsNameError] = useState("");
+  const [isNameError, setIsNameError] = useState('');
   const [isDirty, setIsDirty] = useState(false);
 
   const validateName = () => {
-    values.name.length === 0 && isDirty
-      ? setIsNameError("Site name is required")
-      : setIsNameError("");
+    values.name.length === 0 && isDirty ? setIsNameError('Site name is required') : setIsNameError('');
   };
 
   const onValueChange = ({ target: { name, value } }) => {
@@ -33,7 +31,7 @@ const CreateSiteModal = ({ isOpen, toggleOpen }) => {
 
   const onClose = () => {
     setValues(initState);
-    setIsNameError("");
+    setIsNameError('');
     setIsDirty(false);
     toggleOpen();
   };
@@ -58,26 +56,18 @@ const CreateSiteModal = ({ isOpen, toggleOpen }) => {
             value={values.name}
             required
             onChange={onValueChange}
-            error={isNameError ? "Site name is required" : ""}
+            error={isNameError ? 'Site name is required' : ''}
             onBlur={validateName}
           />
           <Box mt={4}>
-            <TextareaInput
-              name="description"
-              label="Description"
-              value={values.description}
-              onChange={onValueChange}
-            />
+            <TextareaInput name="description" label="Description" value={values.description} onChange={onValueChange} />
           </Box>
         </ModalBody>
         <ModalFooter backgroundColor="bg.gray.100" p={6}>
           <SecondaryButton mr={6} onClick={onClose}>
             Cancel
           </SecondaryButton>
-          <PrimaryButton
-            disabled={!isDirty || values.name.length === 0}
-            type="submit"
-          >
+          <PrimaryButton disabled={!isDirty || values.name.length === 0} type="submit">
             Add this site
           </PrimaryButton>
         </ModalFooter>

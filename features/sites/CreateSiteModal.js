@@ -10,7 +10,7 @@ import {
   ModalCloseButton,
   Text,
   Box
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { TextInput, TextareaInput } from '@/components/input';
 
 const initState = { name: '', description: '' };

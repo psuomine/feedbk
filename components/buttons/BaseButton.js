@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/react';
 
 const BaseButton = ({ children, onClick, ...rest }) => {
   return (

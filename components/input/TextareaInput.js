@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Textarea, FormControl, FormLabel } from '@chakra-ui/core';
+import { Textarea, FormControl, FormLabel } from '@chakra-ui/react';
 
 const TextareaInput = ({ name, label, value, onChange, placeholder }) => {
   return (

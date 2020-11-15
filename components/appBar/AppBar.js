@@ -1,6 +1,6 @@
 import * as React from 'react';
 import AppBarLink from './AppBarLink';
-import { Box, Text, Grid } from '@chakra-ui/core';
+import { Box, Text, Grid } from '@chakra-ui/react';
 
 const AppBar = () => {
   return (

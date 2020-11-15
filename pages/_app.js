@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChakraProvider } from '@chakra-ui/core';
+import { ChakraProvider } from '@chakra-ui/react';
 import customTheme from '../styles/theme';
 
 console.log('customTheme', customTheme);

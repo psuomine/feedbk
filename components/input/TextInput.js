@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, FormLabel, Input, Box, Text } from '@chakra-ui/core';
+import { FormControl, FormLabel, Input, Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
 const MotionText = motion.custom(Text);

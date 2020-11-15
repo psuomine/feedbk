@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PrimaryButton } from '@/components/buttons';
 import { Layout } from '@/components/layout';
-import { Text, Box } from '@chakra-ui/core';
+import { Text, Box } from '@chakra-ui/react';
 import CreateSiteModal from '@/features/sites/CreateSiteModal';
 
 const Sites = () => {

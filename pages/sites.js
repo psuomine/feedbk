@@ -18,7 +18,6 @@ export const getStaticProps = async () => {
 };
 
 const Sites = ({ sites }) => {
-  console.log('sites', sites);
   const { isOpen, onToggle } = useDisclosure();
 
   const { operations, models } = useSites(sites);
@@ -26,8 +25,6 @@ const Sites = ({ sites }) => {
   const createSite = (payload) => {
     operations.createSite(payload);
   };
-
-  console.log('MODELS:SITES', models.sites);
 
   return (
     <>

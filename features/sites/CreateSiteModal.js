@@ -29,7 +29,7 @@ const reducer = (state, action) => {
   }
 };
 
-const CreateSiteModal = ({ isOpen, toggleOpen }) => {
+const CreateSiteModal = ({ isOpen, toggleOpen, createSite }) => {
   const [{ name, description, isDirty, error }, dispatch] = React.useReducer(reducer, initialState);
 
   const validateName = () => {
@@ -44,10 +44,16 @@ const CreateSiteModal = ({ isOpen, toggleOpen }) => {
     toggleOpen();
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    createSite({ name, description });
+    onClose();
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
       <ModalOverlay />
-      <ModalContent maxW="xl">
+      <ModalContent as="form" maxW="xl" onSubmit={onSubmit}>
         <ModalHeader px={6} pb={1} fontSize="lg">
           New site
         </ModalHeader>

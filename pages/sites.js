@@ -8,7 +8,7 @@ import useSites from '@/features/sites/useSites';
 
 const prisma = new PrismaClient();
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const sites = await prisma.site.findMany();
   return {
     props: {

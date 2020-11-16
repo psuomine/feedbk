@@ -18,12 +18,6 @@ DATABASE_URL="database connectionstring"
 
 #### Setup Prisma
 
-First, generate Prisma client
-
-```bash
-npx prisma generate
-```
-
 Run migrations
 
 ```

@@ -5,6 +5,7 @@ import { PrimaryButton } from '@/components/buttons';
 import { Layout } from '@/components/layout';
 import CreateSiteModal from '@/features/sites/CreateSiteModal';
 import useSites from '@/features/sites/useSites';
+import { Toast } from '@/features/toast/Toast';
 
 const prisma = new PrismaClient();
 
@@ -35,6 +36,7 @@ const Sites = ({ sites }) => {
           </Text>
           <PrimaryButton onClick={onToggle}>Add new site</PrimaryButton>
         </Box>
+        <Toast />
         <ul>
           {models.sites.map((site) => {
             return (

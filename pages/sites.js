@@ -36,7 +36,6 @@ const Sites = ({ sites }) => {
           </Text>
           <PrimaryButton onClick={onToggle}>Add new site</PrimaryButton>
         </Box>
-        <Toast />
         <ul>
           {models.sites.map((site) => {
             return (

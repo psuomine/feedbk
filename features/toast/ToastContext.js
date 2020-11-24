@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { ClientOnlyPortal } from '@/components/portal/ClientOnlyPortal';
+import { Toast } from '@/features/toast/Toast';
 
 const ToastContext = React.createContext();
 
@@ -32,10 +34,9 @@ const ToastProvider = ({ children }) => {
   return (
     <ToastContext.Provider value={value}>
       {children}
-
-      {
-        //React.createPortal(<Toast toast={toast} />, document.body)
-      }
+      <ClientOnlyPortal selector="#toast">
+        <Toast />
+      </ClientOnlyPortal>
     </ToastContext.Provider>
   );
 };

@@ -5,6 +5,7 @@ import { PrimaryButton } from '@/components/buttons';
 import { Layout } from '@/components/layout';
 import CreateSiteModal from '@/features/sites/CreateSiteModal';
 import useSites from '@/features/sites/useSites';
+import { useToast } from '@/features/toast/ToastContext';
 
 const prisma = new PrismaClient();
 
@@ -18,12 +19,14 @@ export const getServerSideProps = async () => {
 };
 
 const Sites = ({ sites }) => {
+  const { showToast } = useToast();
   const { isOpen, onToggle } = useDisclosure();
 
   const { operations, models } = useSites(sites);
 
   const createSite = (payload) => {
     operations.createSite(payload);
+    showToast({ title: 'Successfully Created!' });
   };
 
   return (

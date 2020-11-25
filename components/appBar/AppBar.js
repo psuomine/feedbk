@@ -1,15 +1,22 @@
 import * as React from 'react';
-import NextLink from 'next/link';
 import { Box, Text, Grid } from '@chakra-ui/react';
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import AppBarLink from './AppBarLink';
 import AppBarMenuItem from './AppBarMenuItem';
 
 const AppBar = () => {
   return (
-    <Grid width="100%" alignItems="center" h="64px" templateColumns="150px 1fr" bg="bg.gray.800" px={[4, 8]}>
-      <Text color="white" fontSize="2xl" fontWeight="bold">
+    <Grid
+      borderBottomWidth="1px"
+      width="100%"
+      alignItems="center"
+      h="64px"
+      templateColumns="150px 1fr"
+      bg="white"
+      px={[4, 8]}
+    >
+      <Text color="brand.500" fontSize="2xl" fontWeight="bold">
         Feedbäk
       </Text>
       <Box as="nav" display={{ base: 'none', md: 'flex' }}>

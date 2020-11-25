@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Box, Link } from '@chakra-ui/react';
+import { Flex, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 const AppBarLink = ({ to, children }) => {
   const { pathname } = useRouter();
@@ -9,33 +10,37 @@ const AppBarLink = ({ to, children }) => {
   const isActive = pathname === to;
 
   return (
-    <Box
-      transition="all 0.2s ease-in-out"
-      cursor="pointer"
-      px="3"
-      py="2"
-      borderRadius="md"
-      bg={isActive ? 'bg.gray.900' : 'bg.gray.800'}
-      ml="4"
-      d="flex"
-      justifyContent="center"
-      _hover={{
-        backgroundColor: 'bg.gray.700'
-      }}
-    >
+    <motion.div layout>
       <NextLink href={to} passHref>
-        <Link
-          color={isActive ? 'white' : 'text.gray.300'}
-          fontSize="sm"
-          fontWeight="medium"
-          letterSpacing="wide"
-          _hover={{ color: 'white' }}
-          _focus={{ boxShadow: 'none' }}
+        <Flex
+          position="relative"
+          transition="all 0.1s ease-in-out"
+          cursor="pointer"
+          px="3"
+          py="2"
+          borderRadius="md"
+          bg={isActive ? 'bg.gray.500' : 'white'}
+          ml="4"
+          justifyContent="center"
+          color={isActive ? 'text.gray.900' : 'text.gray.600'}
+          _hover={{
+            color: 'text.gray.900'
+          }}
         >
-          {children}
-        </Link>
+          <Link
+            color="currentColor"
+            fontSize="sm"
+            fontWeight="medium"
+            letterSpacing="wide"
+            transition="all 0.1s ease-in-out"
+            _hover={{ color: '#32343D' }}
+            _focus={{ boxShadow: 'none' }}
+          >
+            {children}
+          </Link>
+        </Flex>
       </NextLink>
-    </Box>
+    </motion.div>
   );
 };
 

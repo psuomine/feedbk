@@ -5,7 +5,7 @@ const customTheme = {
     global: {
       'html, body': {
         height: '100%',
-        background: '#F4F5F7'
+        background: '#fff'
       }
     }
   },
@@ -30,15 +30,14 @@ const customTheme = {
     bg: {
       gray: {
         100: '#F9FAFB',
-        700: '#374151',
-        800: '#252F3F',
-        900: '#161E2E'
+        500: '#EBEBEC'
       }
     },
     text: {
       gray: {
         300: '#D2D6DC',
-        600: '#6B7280'
+        600: '#6B7280',
+        900: '#32343D'
       }
     }
   }

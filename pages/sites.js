@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { Text, Box, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import { PrismaClient } from '@prisma/client';
 import { PrimaryButton } from '@/components/buttons';
 import { Layout } from '@/components/layout';
 import CreateSiteModal from '@/features/sites/CreateSiteModal';
 import useSites from '@/features/sites/useSites';
 import { useToast } from '@/features/toast/ToastContext';
+import FeatureItem from '@/features/sites/FeatureItem';
+import Site from '@/features/sites/Site';
+import { Divider } from '@chakra-ui/react';
 
 const prisma = new PrismaClient();
 
@@ -32,22 +35,24 @@ const Sites = ({ sites }) => {
   return (
     <>
       <Layout>
-        <Box d="flex" justifyContent="space-between">
-          <Text fontSize="xl" fontWeight="500">
-            Sites
-          </Text>
+        <Flex justifyContent="flex-end">
           <PrimaryButton onClick={onToggle}>Add new site</PrimaryButton>
-        </Box>
-        <ul>
-          {models.sites.map((site) => {
-            return (
-              <li key={site.id}>
-                <p>{site.name}</p>
-                <p>{site.description}</p>
-              </li>
-            );
-          })}
-        </ul>
+        </Flex>
+        <Site
+          name="Sitename 1"
+          description=" Site description text. This text can be anything! Just do it! User added these"
+        >
+          <FeatureItem featureName="Feature 1" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+          <FeatureItem featureName="Feature 2" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+        </Site>
+        <Divider />
+        <Site
+          name="Sitename 2"
+          description=" Site description text. This text can be anything! Just do it! User added these"
+        >
+          <FeatureItem featureName="Feature 1" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+          <FeatureItem featureName="Feature 2" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+        </Site>
       </Layout>
 
       <CreateSiteModal isOpen={isOpen} toggleOpen={onToggle} createSite={createSite} />

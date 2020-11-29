@@ -5,7 +5,8 @@ const customTheme = {
     global: {
       'html, body': {
         height: '100%',
-        background: '#fff'
+        background: '#fff',
+        color: '#37334D'
       }
     }
   },

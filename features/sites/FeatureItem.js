@@ -3,15 +3,7 @@ import { Text, Flex } from '@chakra-ui/react';
 
 const FeatureItem = ({ featureName, featureId }) => {
   return (
-    <Flex
-      mt="4"
-      px="4"
-      py="3"
-      background="#F9FAFB"
-      borderRadius="md"
-      justifyContent="space-between"
-      alignItems="center"
-    >
+    <Flex px="4" py="3" background="#F9FAFB" borderRadius="md" justifyContent="space-between" alignItems="center">
       <Text>{featureName}</Text>
       <Flex alignItems="center">
         <Text fontSize="xs" color="text.gray.600" mr="2">

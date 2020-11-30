@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, VStack, useDisclosure } from '@chakra-ui/react';
 import { PrismaClient } from '@prisma/client';
 import { PrimaryButton } from '@/components/buttons';
 import { Layout } from '@/components/layout';
@@ -9,6 +9,7 @@ import { useToast } from '@/features/toast/ToastContext';
 import FeatureItem from '@/features/sites/FeatureItem';
 import Site from '@/features/sites/Site';
 import { Divider } from '@chakra-ui/react';
+import NewFeature from '@/features/sites/NewFeature';
 
 const prisma = new PrismaClient();
 
@@ -42,8 +43,11 @@ const Sites = ({ sites }) => {
           name="Sitename 1"
           description=" Site description text. This text can be anything! Just do it! User added these"
         >
-          <FeatureItem featureName="Feature 1" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
-          <FeatureItem featureName="Feature 2" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+          <VStack spacing="4" mt="4" alignItems="stretch">
+            <FeatureItem featureName="Feature 1" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+            <FeatureItem featureName="Feature 2" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+            <NewFeature />
+          </VStack>
         </Site>
         <Divider />
         <Site
@@ -52,6 +56,7 @@ const Sites = ({ sites }) => {
         >
           <FeatureItem featureName="Feature 1" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
           <FeatureItem featureName="Feature 2" featureId="2bb12a06-5c2f-4ff7-865c-b3a373c42f96" />
+          <NewFeature />
         </Site>
       </Layout>
 

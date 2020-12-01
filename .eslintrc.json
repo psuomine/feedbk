@@ -1,42 +1,39 @@
 {
-    "parser": "babel-eslint",
-    "env": {
-        "browser": true,
-        "es6": true,
-        "commonjs": true
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "commonjs": true,
+    "jest": true
+  },
+  "globals": {
+    "process": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "globals": {
-        "process": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended",
-        "prettier",
-        "prettier/react"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 9,
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "react/prop-types": 0,
-        "react/jsx-uses-vars": [
-            2
-        ],
-        "react/jsx-no-undef": "error",
-        "no-console": 0
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/prop-types": 0,
+    "react/jsx-uses-vars": [2],
+    "react/jsx-no-undef": "error",
+    "no-console": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  }
 }

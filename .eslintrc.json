@@ -29,7 +29,8 @@
     "react/prop-types": 0,
     "react/jsx-uses-vars": [2],
     "react/jsx-no-undef": "error",
-    "no-console": 0
+    "no-console": 0,
+    "jsx-a11y/no-autofocus": 0
   },
   "settings": {
     "react": {

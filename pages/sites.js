@@ -50,7 +50,7 @@ const Sites = ({ sites }) => {
         {models.sites.map((site) => (
           <React.Fragment key={site.id}>
             <Site name={site.name} description={site.description}>
-              <FeatureList features={site.features} />
+              <FeatureList features={site.features} siteId={site.id} addFeature={operations.addFeature} />
             </Site>
             <Divider />
           </React.Fragment>

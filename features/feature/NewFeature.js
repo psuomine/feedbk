@@ -1,19 +1,37 @@
 import * as React from 'react';
-import { Flex, Input } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { PlusIcon } from '@/components/icons';
 import { useDisclosure } from '@chakra-ui/react';
 import { CloseIcon, DoneIcon } from '@/components/icons';
-import FeatureIcon from '@/features/feature/FeatureIcon';
+import FeatureIcon from '@/features/feature/FeatureIconButton';
 import FeatureId from '@/features/feature/FeatureId';
+import NewFeatureTextField from '@/features/feature/NewFeatureTextField';
 
 const MotionFlex = motion.custom(Flex);
 
 // TODO own component for FeatureId
 // TODO use same wrapper component for new features and features (same padding etc.)
 
-const NewFeature = () => {
+const NewFeature = ({ onFeatureAdd }) => {
+  const [name, setName] = React.useState('');
   const { isOpen: fullWidth, onToggle } = useDisclosure(false);
+
+  const onDoneClick = () => {
+    if (!name) {
+      return;
+    }
+    onFeatureAdd({ id: '2bb12a06-5c2f-4ff7-865c-b3a373c42f96', name });
+    setName('');
+    onToggle();
+  };
+
+  const onCloseClick = () => {
+    setName('');
+    onToggle();
+  };
+
+  const onNameChange = (event) => setName(event.target.value);
 
   return (
     <MotionFlex
@@ -33,30 +51,13 @@ const NewFeature = () => {
           transition={{ duration: 0.2 }}
           flex={1}
         >
-          <Input
-            autoFocus={true}
-            px="2"
-            w="250px"
-            borderColor="white"
-            placeholder="Feature name"
-            required
-            fontSize="sm"
-            backgroundColor={'white'}
-            h="30px"
-            _invalid={{
-              borderColor: 'error.500',
-              boxShadow: '0 0 0 1px #E38F7D'
-            }}
-            _focus={{
-              borderColor: 'border.focus',
-              boxShadow: '0 0 0 1px #87ABD3'
-            }}
-          />
+          <NewFeatureTextField onChange={onNameChange} value={name} />
+
           <FeatureId id={'2bb12a06-5c2f-4ff7-865c-b3a373c42f96'}>
-            <FeatureIcon _hover={{ stroke: 'error.500' }} onClick={onToggle}>
+            <FeatureIcon _hover={{ stroke: 'error.500' }} onClick={onCloseClick}>
               <CloseIcon />
             </FeatureIcon>
-            <FeatureIcon _hover={{ stroke: 'success.500' }} onClick={onToggle}>
+            <FeatureIcon _hover={{ stroke: 'success.500' }} onClick={onDoneClick}>
               <DoneIcon />
             </FeatureIcon>
           </FeatureId>

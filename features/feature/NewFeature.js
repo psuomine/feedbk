@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { PlusIcon } from '@/components/icons';
 import { useDisclosure } from '@chakra-ui/react';
 import { CloseIcon, DoneIcon } from '@/components/icons';
+import FeatureIcon from '@/features/feature/FeatureIcon';
 
 const MotionFlex = motion.custom(Flex);
 
@@ -58,32 +59,12 @@ const NewFeature = () => {
             <Flex borderRadius="md" background="white" h="100%" px="4" alignItems="center">
               <Text fontSize="sm">{'65f57140-6bd9-4b67-ac65-0a9e30851742'}</Text>
             </Flex>
-            <Flex
-              borderRadius="md"
-              background="white"
-              ml="4"
-              px="4"
-              h="100%"
-              alignItems="center"
-              stroke="#6C7277"
-              _hover={{ stroke: 'error.500' }}
-              onClick={onToggle}
-            >
-              <CloseIcon stroke="inherit" />
-            </Flex>
-            <Flex
-              borderRadius="md"
-              background="white"
-              ml="4"
-              px="4"
-              h="100%"
-              alignItems="center"
-              stroke="#6C7277"
-              _hover={{ stroke: 'success.500' }}
-              onClick={onToggle}
-            >
-              <DoneIcon stroke="inherit" />
-            </Flex>
+            <FeatureIcon _hover={{ stroke: 'error.500' }} onClick={onToggle}>
+              <CloseIcon />
+            </FeatureIcon>
+            <FeatureIcon _hover={{ stroke: 'success.500' }} onClick={onToggle}>
+              <DoneIcon />
+            </FeatureIcon>
           </Flex>
         </MotionFlex>
       ) : (

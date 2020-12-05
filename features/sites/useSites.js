@@ -21,6 +21,21 @@ const useSites = (initialSites) => {
     onSettled: () => queryCache.invalidateQueries('sites')
   });
 
+  const addFeature = (siteId, feature) => {
+    const oldData = queryCache.getQueryData('sites');
+    const newData = oldData.map((site) => {
+      if (site.id !== siteId) {
+        return site;
+      }
+
+      return {
+        ...site,
+        features: [...site.features, feature]
+      };
+    });
+    queryCache.setQueryData('sites', newData);
+  };
+
   const siteQuery = useQuery('sites', () => fetcher('/api/sites'), {
     initialData: initialSites
   });
@@ -32,7 +47,8 @@ const useSites = (initialSites) => {
 
   return {
     operations: {
-      createSite
+      createSite,
+      addFeature
     },
     models: {
       sites: siteQuery.data

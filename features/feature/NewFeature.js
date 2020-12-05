@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Flex, Input, Text } from '@chakra-ui/react';
+import { Flex, Input } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { PlusIcon } from '@/components/icons';
 import { useDisclosure } from '@chakra-ui/react';
 import { CloseIcon, DoneIcon } from '@/components/icons';
 import FeatureIcon from '@/features/feature/FeatureIcon';
+import FeatureId from '@/features/feature/FeatureId';
 
 const MotionFlex = motion.custom(Flex);
 
@@ -18,7 +19,6 @@ const NewFeature = () => {
     <MotionFlex
       animate={{ width: fullWidth ? '100%' : '43px' }}
       initial={{ width: '43px' }}
-      cursor="pointer"
       h="43px"
       background="#F9FAFB"
       borderRadius="md"
@@ -52,23 +52,17 @@ const NewFeature = () => {
               boxShadow: '0 0 0 1px #87ABD3'
             }}
           />
-          <Flex alignItems="center" pl="4" py="2" height="100%">
-            <Text fontSize="xs" color="text.gray.600" mr="2">
-              Feature Id
-            </Text>
-            <Flex borderRadius="md" background="white" h="100%" px="4" alignItems="center">
-              <Text fontSize="sm">{'65f57140-6bd9-4b67-ac65-0a9e30851742'}</Text>
-            </Flex>
+          <FeatureId id={'2bb12a06-5c2f-4ff7-865c-b3a373c42f96'}>
             <FeatureIcon _hover={{ stroke: 'error.500' }} onClick={onToggle}>
               <CloseIcon />
             </FeatureIcon>
             <FeatureIcon _hover={{ stroke: 'success.500' }} onClick={onToggle}>
               <DoneIcon />
             </FeatureIcon>
-          </Flex>
+          </FeatureId>
         </MotionFlex>
       ) : (
-        <Flex onClick={onToggle} alignItems="center" justifyContent="center" flex="1">
+        <Flex onClick={onToggle} alignItems="center" cursor="pointer" justifyContent="center" flex="1">
           <PlusIcon />
         </Flex>
       )}

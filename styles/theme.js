@@ -24,6 +24,9 @@ const customTheme = {
       300: '#E38F7D',
       500: '#D12702'
     },
+    success: {
+      500: '#31C48D'
+    },
     border: {
       default: '#D2D6DC',
       focus: '#266EBC'

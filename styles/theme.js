@@ -33,7 +33,7 @@ const customTheme = {
     },
     bg: {
       gray: {
-        100: '#F9FAFB',
+        100: '#F9F9FA',
         500: '#EBEBEC'
       }
     },

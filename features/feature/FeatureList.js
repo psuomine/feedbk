@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { VStack } from '@chakra-ui/react';
-import FeatureListItem from '@/features/feature/FeatureListItem';
 import NewFeature from '@/features/feature/NewFeature';
+import FeatureListItem from '@/features/feature/FeatureListItem';
 import { AnimatePresence } from 'framer-motion';
 
 const FeatureList = ({ features, siteId, addFeature }) => {

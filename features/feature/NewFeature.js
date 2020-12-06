@@ -38,7 +38,7 @@ const NewFeature = ({ onFeatureAdd }) => {
       animate={{ width: fullWidth ? '100%' : '43px' }}
       initial={{ width: '43px' }}
       h="43px"
-      background="#F9FAFB"
+      background="bg.gray.100"
       borderRadius="md"
     >
       {fullWidth ? (

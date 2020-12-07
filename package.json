@@ -44,11 +44,6 @@
     "lint-staged": "^10.5.1",
     "prettier": "2.1.2"
   },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupTests.js"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

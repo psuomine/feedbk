@@ -8,7 +8,7 @@ const FeatureItem = ({ children, ...props }) => {
   return (
     <MotionFeature
       px="4"
-      background="#F9FAFB"
+      background="bg.gray.100"
       borderRadius="md"
       justifyContent="space-between"
       alignItems="center"

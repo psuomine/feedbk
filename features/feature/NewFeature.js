@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { PlusIcon } from '@/components/icons';
 import { useDisclosure } from '@chakra-ui/react';
 import { CloseIcon, DoneIcon } from '@/components/icons';
-import FeatureIcon from '@/features/feature/FeatureIconButton';
+import FeatureIconButton from '@/features/feature/FeatureIconButton';
 import FeatureId from '@/features/feature/FeatureId';
 import NewFeatureTextField from '@/features/feature/NewFeatureTextField';
 
@@ -54,18 +54,25 @@ const NewFeature = ({ onFeatureAdd }) => {
           <NewFeatureTextField onChange={onNameChange} value={name} />
 
           <FeatureId id={'2bb12a06-5c2f-4ff7-865c-b3a373c42f96'}>
-            <FeatureIcon _hover={{ stroke: 'error.500' }} onClick={onCloseClick}>
+            <FeatureIconButton _hover={{ stroke: 'error.500' }} onClick={onCloseClick}>
               <CloseIcon />
-            </FeatureIcon>
-            <FeatureIcon _hover={{ stroke: 'success.500' }} onClick={onDoneClick}>
+            </FeatureIconButton>
+            <FeatureIconButton _hover={{ stroke: 'success.500' }} onClick={onDoneClick} data-testid="feature-done">
               <DoneIcon />
-            </FeatureIcon>
+            </FeatureIconButton>
           </FeatureId>
         </MotionFlex>
       ) : (
-        <Flex onClick={onToggle} alignItems="center" cursor="pointer" justifyContent="center" flex="1">
+        <Button
+          onClick={onToggle}
+          alignItems="center"
+          cursor="pointer"
+          justifyContent="center"
+          flex="1"
+          backgroundColor="inherit"
+        >
           <PlusIcon />
-        </Flex>
+        </Button>
       )}
     </MotionFlex>
   );

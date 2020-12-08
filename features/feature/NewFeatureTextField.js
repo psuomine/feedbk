@@ -6,7 +6,7 @@ const NewFeatureTextField = ({ onChange, value }) => {
     <Input
       autoFocus={true}
       px="2"
-      w="250px"
+      w={['160px', '250px']}
       borderColor="white"
       placeholder="Feature name"
       required

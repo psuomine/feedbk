@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
     <>
       <AppBar />
       <Container as="main" d="flex" justifyContent="center" maxWidth="100%">
-        <Box maxW="1024px" w="100%" p="6" mx={4}>
+        <Box maxW="1024px" w="100%" p={[2, 6]}>
           {children}
         </Box>
       </Container>

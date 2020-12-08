@@ -11,7 +11,7 @@ const Site = ({ name, description, children }) => {
       <Text fontSize="sm" lineHeight="short" color="text.gray.600">
         {description}
       </Text>
-      <Flex p="6" direction="column">
+      <Flex p={[4, 6]} direction="column">
         <Flex alignItems="center">
           <FeatureIcon w="20px" h="20px" />
           <Text ml="2" fontWeight="medium" as="h6">

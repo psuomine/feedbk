@@ -38,6 +38,7 @@ const NewFeature = ({ onFeatureAdd }) => {
       animate={{ width: fullWidth ? '100%' : '43px' }}
       initial={{ width: '43px' }}
       h="43px"
+      w="43px"
       background="bg.gray.100"
       borderRadius="md"
     >
@@ -64,6 +65,8 @@ const NewFeature = ({ onFeatureAdd }) => {
         </MotionFlex>
       ) : (
         <Button
+          w="100%"
+          h="100%"
           onClick={onToggle}
           alignItems="center"
           cursor="pointer"

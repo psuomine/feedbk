@@ -9,6 +9,7 @@ import { useToast } from '@/features/toast/ToastContext';
 import Site from '@/features/sites/Site';
 import { Divider } from '@chakra-ui/react';
 import FeatureList from '@/features/feature/FeatureList';
+import NewFeature from '@/features/feature/NewFeature';
 
 const prisma = new PrismaClient();
 
@@ -34,12 +35,12 @@ const Sites = ({ sites }) => {
 
   const { operations, models } = useSites(sites);
 
-  console.log('MODELS', models);
-
   const createSite = (payload) => {
     operations.createSite(payload);
     showToast({ title: 'Successfully Created!' });
   };
+
+  const createFeature = (siteId) => (feature) => operations.addFeature(siteId, feature);
 
   return (
     <>
@@ -50,7 +51,8 @@ const Sites = ({ sites }) => {
         {models.sites.map((site) => (
           <React.Fragment key={site.id}>
             <Site name={site.name} description={site.description}>
-              <FeatureList features={site.features} siteId={site.id} addFeature={operations.addFeature} />
+              <FeatureList features={site.features} />
+              <NewFeature onFeatureAdd={createFeature(site.id)} />
             </Site>
             <Divider />
           </React.Fragment>

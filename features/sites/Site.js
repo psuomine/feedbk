@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, Flex } from '@chakra-ui/react';
+import { Text, Flex, VStack } from '@chakra-ui/react';
 import { FeatureIcon } from '@/components/icons';
 
 const Site = ({ name, description, children }) => {
@@ -18,7 +18,9 @@ const Site = ({ name, description, children }) => {
             Features
           </Text>
         </Flex>
-        {children}
+        <VStack spacing="4" mt="4" alignItems="stretch">
+          {children}
+        </VStack>
       </Flex>
     </Flex>
   );

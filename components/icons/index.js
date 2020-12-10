@@ -5,3 +5,4 @@ export { default as FeatureIcon } from './FeatureIcon';
 export { default as PlusIcon } from './PlusIcon';
 export { default as DoneIcon } from './DoneIcon';
 export { default as ClipboardIcon } from './ClipboardIcon';
+export { default as CopiedToClipboardIcon } from './CopiedToClipboardIcon';

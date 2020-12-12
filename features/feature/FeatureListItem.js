@@ -27,11 +27,16 @@ const FeatureListItem = ({ featureName, featureId }) => {
             <FeatureIconButton
               _hover={{ stroke: 'brand.500' }}
               onClick={onCopyClick}
-              width="54px"
               height="24px"
-              stroke={copied ? 'brand.500' : '#6C7277'}
+              stroke={copied ? 'brand.500' : 'icon.stroke'}
             >
-              {!copied ? <CopiedToClipboardIcon /> : <ClipboardIcon height="24px" />}
+              <>
+                {!copied ? <ClipboardIcon height="20px" /> : <CopiedToClipboardIcon height="18px" stroke="brand.500" />}
+
+                <Text fontSize="sm" fontWeight="500" ml="1" color={!copied ? '' : 'brand.500'}>
+                  {!copied ? 'Copy' : 'Copied'}
+                </Text>
+              </>
             </FeatureIconButton>
           </div>
         </FeatureId>

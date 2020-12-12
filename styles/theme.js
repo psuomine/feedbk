@@ -43,6 +43,9 @@ const customTheme = {
         600: '#6B7280',
         900: '#32343D'
       }
+    },
+    icon: {
+      stroke: '#37334D'
     }
   }
 };

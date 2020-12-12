@@ -53,17 +53,17 @@ const CreateSiteModal = ({ isOpen, toggleOpen, createSite }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
       <ModalOverlay />
-      <ModalContent as="form" maxW="xl" onSubmit={onSubmit}>
-        <ModalHeader px={6} pb={1} fontSize="lg">
-          New site
-        </ModalHeader>
-        <Box px={6}>
+      <ModalContent as="form" maxW="xl" onSubmit={onSubmit} mx={4}>
+        <Box px={[4, 6]}>
+          <ModalHeader pb={1} fontSize="lg" px={0}>
+            New site
+          </ModalHeader>
           <Text fontSize="sm" lineHeight="short" color="text.gray.600">
             Fill out the site information below to get started
           </Text>
         </Box>
-        <ModalCloseButton tabIndex="-1" top={6} right={6} onClick={onClose} />
-        <ModalBody px={6} my={4}>
+        <ModalCloseButton tabIndex="-1" top={[4, 6]} right={[4, 6]} onClick={onClose} />
+        <ModalBody my={2} px={[4, 6]}>
           <TextInput
             name="name"
             label="Site name"
@@ -77,8 +77,8 @@ const CreateSiteModal = ({ isOpen, toggleOpen, createSite }) => {
             <TextareaInput name="description" label="Description" value={description} onChange={onValueChange} />
           </Box>
         </ModalBody>
-        <ModalFooter backgroundColor="bg.gray.100" p={6}>
-          <SecondaryButton mr={6} onClick={onClose}>
+        <ModalFooter backgroundColor="bg.gray.100" p={[4, 6]}>
+          <SecondaryButton mr={[4, 6]} onClick={onClose}>
             Cancel
           </SecondaryButton>
           <PrimaryButton disabled={!isDirty || name.length === 0} type="submit">

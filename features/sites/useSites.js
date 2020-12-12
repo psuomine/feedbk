@@ -9,7 +9,7 @@ const useSites = (initialSites) => {
       queryCache.cancelQueries('sites');
 
       const oldSites = queryCache.getQueryData('sites');
-      queryCache.setQueryData('sites', (oldSites) => [...oldSites, payload]);
+      queryCache.setQueryData('sites', (oldSites) => [...oldSites, { ...payload, features: [] }]);
 
       return () => queryCache.setQueryData('sites', oldSites);
     },

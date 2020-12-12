@@ -14,7 +14,7 @@ const TextInput = ({ name, label, value, onChange, placeholder, required = false
         </FormLabel>
         {error && (
           <Box overflow="hidden">
-            <MotionText fontSize="sm" fontWeight="medium" color="error.500" initial={{ y: 25 }} animate={{ y: 0 }}>
+            <MotionText fontSize="sm" color="error.500" initial={{ y: 25 }} animate={{ y: 0 }}>
               {error}
             </MotionText>
           </Box>

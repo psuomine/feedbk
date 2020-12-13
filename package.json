@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.0.0",
     "@prisma/client": "^2.11.0",
     "@testing-library/user-event": "^12.2.2",
+    "firebase": "^8.2.0",
     "framer-motion": "^2.9.4",
     "next": "10.0.1",
     "react": "17.0.1",

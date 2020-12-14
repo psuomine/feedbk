@@ -1,7 +1,9 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/functions';
 import 'firebase/firestore';
+
+console.log(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN);
 
 if (!firebase.apps.length) {
   firebase.initializeApp({

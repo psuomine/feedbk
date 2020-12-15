@@ -1,11 +1,13 @@
 import * as React from 'react';
 import firebase from '@/utils/firebase';
+import { useRouter } from 'next/router';
 
 const AuthContext = React.createContext();
 
 const useProvideAuth = () => {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+  const router = useRouter();
 
   const handleUser = (rawUser) => {
     if (!rawUser) {
@@ -25,14 +27,20 @@ const useProvideAuth = () => {
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
-      .then((response) => handleUser(response.user));
+      .then((response) => {
+        handleUser(response.user);
+        router.push('/');
+      });
   };
 
   const signout = () => {
     return firebase
       .auth()
       .signOut()
-      .then(() => handleUser(null));
+      .then(() => {
+        handleUser(null);
+        router.push('/login');
+      });
   };
 
   React.useEffect(() => {

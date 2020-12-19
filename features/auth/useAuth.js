@@ -1,47 +1,60 @@
 import * as React from 'react';
 import firebase from '@/utils/firebase';
 import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
 
 const AuthContext = React.createContext();
 
+const authReducer = (state, action) => {
+  switch (action.type) {
+    case 'logout':
+      return { loading: false, user: false };
+    case 'login':
+      return { loading: false, user: action.user };
+    case 'start-login':
+      return { loading: true, user: false };
+    default:
+      throw new Error();
+  }
+};
+
 const useProvideAuth = () => {
-  const [user, setUser] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
+  const [{ user, loading }, dispatch] = React.useReducer(authReducer, { loading: true, user: false });
   const router = useRouter();
 
   const handleUser = (rawUser) => {
     if (!rawUser) {
-      setLoading(false);
-      setUser(false);
+      dispatch({ type: 'logout' });
+      cookie.remove('feedbaek-auth');
       return false;
     }
 
     const user = formatUser(rawUser);
-    setLoading(false);
-    setUser(user);
+    dispatch({ type: 'login', user });
+    cookie.set('feedbaek-auth', true, { expires: 1 });
   };
 
   const signinWithGitHub = () => {
-    setLoading(true);
+    dispatch({ type: 'start-login' });
 
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
       .then((response) => {
         handleUser(response.user);
-        router.push('/');
+        router.push('/feedbacks');
       });
   };
 
-  const signout = () => {
+  const signout = React.useCallback(() => {
     return firebase
       .auth()
       .signOut()
       .then(() => {
         handleUser(null);
-        router.push('/login');
+        router.push('/');
       });
-  };
+  }, [router]);
 
   React.useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(handleUser);

@@ -34,7 +34,7 @@ const FeatureListItem = ({ featureName, featureId }) => {
                 {!copied ? <ClipboardIcon height="20px" /> : <CopiedToClipboardIcon height="18px" stroke="brand.500" />}
 
                 <Text fontSize="sm" fontWeight="500" ml="1" color={!copied ? '' : 'brand.500'}>
-                  {!copied ? 'Copy' : 'Copied'}
+                  {!copied ? 'Copy Id' : 'Copied'}
                 </Text>
               </>
             </FeatureIconButton>

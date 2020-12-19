@@ -20,7 +20,7 @@ const AppBar = () => {
         Feedbäk
       </Text>
       <Box as="nav" display={{ base: 'none', md: 'flex' }}>
-        <AppBarLink to="/">New feedbacks</AppBarLink>
+        <AppBarLink to="/feedbacks">New feedbacks</AppBarLink>
         <AppBarLink to="/archived">Archived feedbacks</AppBarLink>
         <AppBarLink to="/sites">Sites</AppBarLink>
       </Box>

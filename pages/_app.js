@@ -2,15 +2,18 @@ import * as React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import customTheme from '../styles/theme';
 import { ToastProvider } from '@/features/toast/ToastContext';
+import { AuthProvider } from '@/features/auth/useAuth';
 
 function MyApp({ Component, pageProps }) {
   console.log(customTheme);
   return (
-    <ChakraProvider theme={customTheme}>
-      <ToastProvider>
-        <Component {...pageProps} />
-      </ToastProvider>
-    </ChakraProvider>
+    <AuthProvider>
+      <ChakraProvider theme={customTheme}>
+        <ToastProvider>
+          <Component {...pageProps} />
+        </ToastProvider>
+      </ChakraProvider>
+    </AuthProvider>
   );
 }
 

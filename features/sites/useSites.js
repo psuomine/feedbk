@@ -39,8 +39,8 @@ const useSites = () => {
   const siteQuery = useQuery('sites', () => fetcher('/api/sites'));
 
   const createSite = (payload) => {
-    const siteId = uuidv4();
-    create({ ...payload, siteId });
+    const id = uuidv4();
+    create({ ...payload, id });
   };
 
   return {

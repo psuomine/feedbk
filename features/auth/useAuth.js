@@ -2,6 +2,7 @@ import * as React from 'react';
 import firebase from '@/utils/firebase';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
+import { createUser } from '@/utils/db';
 
 const AuthContext = React.createContext();
 
@@ -30,6 +31,7 @@ const useProvideAuth = () => {
     }
 
     const user = formatUser(rawUser);
+    createUser(user.uid, user);
     dispatch({ type: 'login', user });
     cookie.set('feedbaek-auth', true, { expires: 1 });
   };
@@ -78,10 +80,12 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => React.useContext(AuthContext);
 
 const formatUser = (user) => {
+  console.log('user', user);
   return {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
-    provider: user.providerData[0].providerId
+    provider: user.providerData[0].providerId,
+    photoUrl: user.photoURL
   };
 };

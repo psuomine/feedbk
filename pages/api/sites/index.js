@@ -1,9 +1,9 @@
-import { db } from '@/utils/firebase-admin';
+import { db, auth } from '@/utils/firebase-admin';
 
 export default async (req, res) => {
   try {
-    const snapshot = await db.collection('sites').get();
-    //const { uid } = await auth.verifyIdToken(req.headers.token);
+    const { uid } = await auth.verifyIdToken(req.headers.authorization);
+    const snapshot = await db.collection('sites').where('userId', '==', uid).get();
 
     const sites = [];
 

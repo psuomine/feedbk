@@ -31,7 +31,8 @@ const useProvideAuth = () => {
     }
 
     const user = formatUser(rawUser);
-    createUser(user.uid, user);
+    const { token, ...userWithoutToken } = user;
+    createUser(user.uid, userWithoutToken);
     dispatch({ type: 'login', user });
     cookie.set('feedbaek-auth', true, { expires: 1 });
   };
@@ -80,12 +81,12 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => React.useContext(AuthContext);
 
 const formatUser = (user) => {
-  console.log('user', user);
   return {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
     provider: user.providerData[0].providerId,
-    photoUrl: user.photoURL
+    photoUrl: user.photoURL,
+    token: user.xa || user.ya
   };
 };

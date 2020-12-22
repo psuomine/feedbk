@@ -1,9 +1,11 @@
 import { useQuery, useMutation, queryCache } from 'react-query';
 import { fetcher } from '@/utils/fetcher';
 import { v4 as uuidv4 } from 'uuid';
+import { useAuth } from '@/features/auth/useAuth';
 
 const useSites = () => {
-  const [create] = useMutation((payload) => fetcher('/api/sites/create', payload), {
+  const { user } = useAuth();
+  const [create] = useMutation((payload) => fetcher('/api/sites/create', user.token, payload), {
     onMutate: (payload) => {
       // Cancel all sites queries -> to prevent race conditions
       queryCache.cancelQueries('sites');
@@ -36,7 +38,7 @@ const useSites = () => {
     queryCache.setQueryData('sites', newData);
   };
 
-  const siteQuery = useQuery('sites', () => fetcher('/api/sites'));
+  const siteQuery = useQuery('sites', async () => await fetcher('/api/sites', user.token), { enabled: user });
 
   const createSite = (payload) => {
     const id = uuidv4();
@@ -49,7 +51,7 @@ const useSites = () => {
       addFeature
     },
     models: {
-      sites: siteQuery.data,
+      sites: siteQuery.data ?? [],
       sitesQuery: siteQuery
     }
   };

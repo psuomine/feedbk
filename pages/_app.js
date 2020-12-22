@@ -5,7 +5,6 @@ import { ToastProvider } from '@/features/toast/ToastContext';
 import { AuthProvider } from '@/features/auth/useAuth';
 
 function MyApp({ Component, pageProps }) {
-  console.log(customTheme);
   return (
     <AuthProvider>
       <ChakraProvider theme={customTheme}>

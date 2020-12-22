@@ -12,6 +12,5 @@ export const createUser = (uid, data) => {
 export const createSite = (uid, siteData) => {
   const site = firestore.collection('sites').doc();
   site.set({ userId: uid, ...siteData });
-  console.log('SITE', site);
   return site;
 };

@@ -77,7 +77,7 @@ const CreateSiteModal = ({ isOpen, toggleOpen, createSite }) => {
             <TextareaInput name="description" label="Description" value={description} onChange={onValueChange} />
           </Box>
         </ModalBody>
-        <ModalFooter backgroundColor="bg.gray.100" p={[4, 6]}>
+        <ModalFooter backgroundColor="bg.gray.100" p={[4, 6]} borderBottomLeftRadius="md" borderBottomRightRadius="md">
           <SecondaryButton mr={[4, 6]} onClick={onClose}>
             Cancel
           </SecondaryButton>

@@ -2,13 +2,15 @@ import * as React from 'react';
 import useSites from '@/features/sites/useSites';
 import { useToast } from '@/features/toast/ToastContext';
 import Site from '@/features/sites/Site';
-import { Divider, Text } from '@chakra-ui/react';
+import { Divider } from '@chakra-ui/react';
 import FeatureList from '@/features/feature/FeatureList';
 import NewFeature from '@/features/feature/NewFeature';
 import SitesLayout from '@/features/sites/SitesLayout';
+import SitesSkeleton from '@/features/sites/SitesSkeleton';
 
 const Sites = () => {
   const { showToast } = useToast();
+  const [load, setLoad] = React.useState(false);
 
   const {
     operations,
@@ -22,16 +24,12 @@ const Sites = () => {
 
   const createFeature = (siteId) => (feature) => operations.addFeature(siteId, feature);
 
-  if (sitesQuery.isLoading) {
-    return (
-      <SitesLayout createSite={createSite}>
-        <Text>LOADING</Text>
-      </SitesLayout>
-    );
+  if (load) {
+    return <SitesSkeleton createSite={createSite} />;
   }
 
   return (
-    <SitesLayout createSite={createSite}>
+    <SitesLayout createSite={createSite} toggle={() => setLoad((state) => !state)}>
       {sites.map((site) => (
         <React.Fragment key={site.id}>
           <Site name={site.name} description={site.description}>

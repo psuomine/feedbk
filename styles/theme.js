@@ -34,6 +34,7 @@ const customTheme = {
     bg: {
       gray: {
         100: '#F9F9FA',
+        200: '#f1f1f3',
         500: '#EBEBEC'
       }
     },

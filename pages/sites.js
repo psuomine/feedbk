@@ -10,7 +10,6 @@ import SitesSkeleton from '@/features/sites/SitesSkeleton';
 
 const Sites = () => {
   const { showToast } = useToast();
-  const [load, setLoad] = React.useState(false);
 
   const {
     operations,
@@ -24,12 +23,12 @@ const Sites = () => {
 
   const createFeature = (siteId) => (feature) => operations.addFeature(siteId, feature);
 
-  if (load) {
+  if (sitesQuery.isLoading) {
     return <SitesSkeleton createSite={createSite} />;
   }
 
   return (
-    <SitesLayout createSite={createSite} toggle={() => setLoad((state) => !state)}>
+    <SitesLayout createSite={createSite}>
       {sites.map((site) => (
         <React.Fragment key={site.id}>
           <Site name={site.name} description={site.description}>

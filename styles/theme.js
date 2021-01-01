@@ -16,6 +16,7 @@ const customTheme = {
   colors: {
     brand: {
       50: '#F6F6FE',
+      100: '#F0F5FF',
       500: '#5750ED',
       600: '#372FEA'
     },

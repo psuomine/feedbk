@@ -32,6 +32,7 @@ const useProvideAuth = () => {
 
     const user = formatUser(rawUser);
     const { token, ...userWithoutToken } = user;
+    console.log(userWithoutToken);
     createUser(user.uid, userWithoutToken);
     dispatch({ type: 'login', user });
     cookie.set('feedbaek-auth', true, { expires: 1 });

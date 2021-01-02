@@ -23,7 +23,6 @@ const Layout = ({ children }) => {
   return (
     <>
       <AppBar />
-      <Button onClick={auth.signout}>Logout</Button>
       <Container as="main" d="flex" justifyContent="center" maxWidth="100%">
         <Box maxW="1024px" w="100%" p={[2, 6]}>
           {children}

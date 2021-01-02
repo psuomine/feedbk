@@ -1,20 +1,6 @@
 import * as React from 'react';
 import { Box, Text, Grid } from '@chakra-ui/react';
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  Image,
-  Divider,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuIcon,
-  MenuCommand,
-  MenuDivider,
-  Avatar
-} from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, Divider, MenuItem, MenuDivider, Avatar } from '@chakra-ui/react';
 
 import { HamburgerIcon } from '@chakra-ui/icons';
 import AppBarLink from './AppBarLink';
@@ -22,8 +8,8 @@ import AppBarMenuItem from './AppBarMenuItem';
 import { useAuth } from '@/features/auth/useAuth';
 
 const AppBar = () => {
-  const { user } = useAuth();
-  console.log('AUTH', user);
+  const { user, signout } = useAuth();
+
   return (
     <>
       <Grid
@@ -66,6 +52,7 @@ const AppBar = () => {
               </Box>
               <MenuDivider />
               <MenuItem
+                onClick={signout}
                 justifyContent="center"
                 color="brand.500"
                 textAlign="center"

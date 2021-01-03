@@ -4,13 +4,13 @@ import { db, auth, firestore } from '@/utils/firebase-admin';
 export default async (req, res) => {
   try {
     const { uid } = await auth.verifyIdToken(req.headers.authorization);
-    const { featureId, featureName, siteId } = req.body;
+    const { id, name, siteId } = req.body;
 
-    if (featureId.length === 0 || !uuidValidate(featureId)) {
+    if (id.length === 0 || !uuidValidate(id)) {
       return res.status(400).json({ error: 'Feature Id is required' });
     }
 
-    if (featureName.length === 0) {
+    if (name.length === 0) {
       return res.status(400).json({ error: 'Feature name is required' });
     }
 
@@ -30,8 +30,8 @@ export default async (req, res) => {
     await sitesRef.doc(siteId).update(
       'features',
       firestore.FieldValue.arrayUnion({
-        featureId,
-        featureName
+        id,
+        name
       })
     );
 

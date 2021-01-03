@@ -11,7 +11,10 @@ export default async (req, res) => {
       return res.status(400).json({ error: 'Name is required' });
     }
 
-    const sites = await db.collection('sites').doc(id).set({ id: siteId, name, description, userId: uid });
+    const sites = await db
+      .collection('sites')
+      .doc(id)
+      .set({ id: siteId, name, description, userId: uid, features: [] });
 
     res.status(200).json({ sites });
   } catch (error) {

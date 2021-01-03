@@ -6,13 +6,15 @@ import { CloseIcon, DoneIcon } from '@/components/icons';
 import FeatureIconButton from '@/features/feature/FeatureIconButton';
 import FeatureId from '@/features/feature/FeatureId';
 import NewFeatureTextField from '@/features/feature/NewFeatureTextField';
+import { v4 as uuidv4 } from 'uuid';
 
 const MotionFlex = motion.custom(Flex);
 
 const initialState = {
   name: '',
   isFullWidth: false,
-  isError: false
+  isError: false,
+  id: uuidv4()
 };
 
 const reducer = (state, action) => {
@@ -24,14 +26,14 @@ const reducer = (state, action) => {
     case 'TOGGLE_FULL_WIDTH':
       return { ...state, isFullWidth: !state.isFullWidth };
     case 'RESET':
-      return { ...initialState };
+      return { ...initialState, id: uuidv4() };
     default:
       throw new Error();
   }
 };
 
 const NewFeature = ({ onFeatureAdd }) => {
-  const [{ name, isFullWidth, isError }, dispatch] = React.useReducer(reducer, initialState);
+  const [{ name, id, isFullWidth, isError }, dispatch] = React.useReducer(reducer, initialState);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -40,21 +42,15 @@ const NewFeature = ({ onFeatureAdd }) => {
       return;
     }
 
-    onFeatureAdd({ id: '2bb12a06-5c2f-4ff7-865c-b3a373c42f96', name });
+    onFeatureAdd({ id, name });
     dispatch({ type: 'RESET' });
   };
 
-  const onCloseClick = () => {
-    dispatch({ type: 'RESET' });
-  };
+  const onCloseClick = () => dispatch({ type: 'RESET' });
 
-  const onNameChange = (event) => {
-    dispatch({ type: 'NAME_CHANGE', payload: event.target.value });
-  };
+  const onNameChange = (event) => dispatch({ type: 'NAME_CHANGE', payload: event.target.value });
 
-  const onOpenField = () => {
-    dispatch({ type: 'TOGGLE_FULL_WIDTH' });
-  };
+  const onOpenField = () => dispatch({ type: 'TOGGLE_FULL_WIDTH' });
 
   return (
     <MotionFlex
@@ -79,7 +75,7 @@ const NewFeature = ({ onFeatureAdd }) => {
         >
           <NewFeatureTextField onChange={onNameChange} value={name} error={isError} />
 
-          <FeatureId id={'2bb12a06-5c2f-4ff7-865c-b3a373c42f96'}>
+          <FeatureId id={id}>
             <FeatureIconButton _hover={{ stroke: 'error.500' }} onClick={onCloseClick}>
               <CloseIcon />
             </FeatureIconButton>

@@ -21,7 +21,10 @@ const Sites = () => {
     showToast({ title: 'Successfully Created!' });
   };
 
-  const createFeature = (siteId) => (feature) => operations.addFeature(siteId, feature);
+  const createFeature = (siteId) => (feature) => {
+    const payload = { siteId, ...feature };
+    operations.addFeature(payload);
+  };
 
   if (sitesQuery.isLoading) {
     return <SitesSkeleton createSite={createSite} />;

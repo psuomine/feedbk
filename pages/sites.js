@@ -32,7 +32,7 @@ const Sites = () => {
     return <SitesSkeleton createSite={createSite} />;
   }
 
-  if (true) {
+  if (sites.length === 0) {
     return (
       <SitesLayout createSite={createSite}>
         <Flex flexDirection="column" alignItems="center" justifyContent="center">

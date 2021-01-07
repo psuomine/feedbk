@@ -10,13 +10,16 @@ import SitesSkeleton from '@/features/sites/SitesSkeleton';
 import Image from 'next/image';
 import { PrimaryButton } from '@/components/buttons';
 
+// Move Dialog here and toggle state
 const Sites = () => {
   const { showToast } = useToast();
 
   const { isLoading, data: sites = [] } = useGetSites();
 
+  // Move this to inside create site dialog
   const { mutate: createSiteMutation } = useCreateSite();
 
+  // Move this to new feature component
   const { mutate: createFeatureMutation } = useCreateFeature();
 
   const createSite = (payload) => {

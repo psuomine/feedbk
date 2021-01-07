@@ -4,7 +4,7 @@ import { db, auth } from '@/utils/firebase-admin';
 export default async (req, res) => {
   try {
     const { uid } = await auth.verifyIdToken(req.headers.authorization);
-    const { id, name, description } = req.body;
+    const { id = '', name, description } = req.body;
     const siteId = id ? id : uuidv4();
 
     if (name.length === 0) {
@@ -13,7 +13,7 @@ export default async (req, res) => {
 
     const sites = await db
       .collection('sites')
-      .doc(id)
+      .doc(siteId)
       .set({ id: siteId, name, description, userId: uid, features: [] });
 
     res.status(200).json({ sites });

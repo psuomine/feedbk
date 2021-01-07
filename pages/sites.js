@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useSites from '@/features/sites/useSites';
+import { useGetSites, useCreateSite, useCreateFeature } from '@/features/sites/useSitesQuery';
 import { useToast } from '@/features/toast/ToastContext';
 import Site from '@/features/sites/Site';
 import { Divider, Flex, Text } from '@chakra-ui/react';
@@ -13,22 +13,23 @@ import { PrimaryButton } from '@/components/buttons';
 const Sites = () => {
   const { showToast } = useToast();
 
-  const {
-    operations,
-    models: { sites, sitesQuery }
-  } = useSites();
+  const { isLoading, data: sites = [] } = useGetSites();
+
+  const { mutate: createSiteMutation } = useCreateSite();
+
+  const { mutate: createFeatureMutation } = useCreateFeature();
 
   const createSite = (payload) => {
-    operations.createSite(payload);
+    createSiteMutation(payload);
     showToast({ title: 'Successfully Created!' });
   };
 
   const createFeature = (siteId) => (feature) => {
     const payload = { siteId, ...feature };
-    operations.addFeature(payload);
+    createFeatureMutation(payload);
   };
 
-  if (sitesQuery.isLoading) {
+  if (isLoading) {
     return <SitesSkeleton createSite={createSite} />;
   }
 

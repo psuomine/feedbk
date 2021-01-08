@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Divider, Flex, Text, VStack } from '@chakra-ui/react';
-import SitesLayout from '@/features/sites/SitesLayout';
 import { FeatureIcon } from '@/components/icons';
 import { Skeleton } from '@/components/skeleton';
 
-const SitesSkeleton = ({ createSite }) => {
+const SitesSkeleton = () => {
   return (
-    <SitesLayout createSite={createSite}>
+    <>
       <Flex mt="6" flexDirection="column">
         <Skeleton height="26px" width="200px" />
         <Skeleton height="15px" width="350px" mt="2" />
@@ -25,7 +24,7 @@ const SitesSkeleton = ({ createSite }) => {
         </Flex>
       </Flex>
       <Divider />
-    </SitesLayout>
+    </>
   );
 };
 

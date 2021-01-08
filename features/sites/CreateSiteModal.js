@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PrimaryButton, SecondaryButton } from '@/components/buttons';
+import { useCreateSite } from '@/features/sites/useSitesQuery';
 import {
   Modal,
   ModalOverlay,
@@ -12,6 +13,7 @@ import {
   Box
 } from '@chakra-ui/react';
 import { TextInput, TextareaInput } from '@/components/input';
+import { useToast } from '@/features/toast/ToastContext';
 
 const initialState = { name: '', description: '', isDirty: false, error: '' };
 
@@ -29,8 +31,11 @@ const reducer = (state, action) => {
   }
 };
 
-const CreateSiteModal = ({ isOpen, toggleOpen, createSite }) => {
+const CreateSiteModal = ({ isOpen, toggleOpen }) => {
+  const { showToast } = useToast();
   const [{ name, description, isDirty, error }, dispatch] = React.useReducer(reducer, initialState);
+
+  const { mutate: createFeatureMutation } = useCreateSite();
 
   const validateName = () => {
     const error = name.length === 0 && isDirty ? 'Site name is required' : '';
@@ -46,7 +51,9 @@ const CreateSiteModal = ({ isOpen, toggleOpen, createSite }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    createSite({ name, description });
+    createFeatureMutation({ name, description });
+    showToast({ title: 'Successfully Created!' });
+
     onClose();
   };
 

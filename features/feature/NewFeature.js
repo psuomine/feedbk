@@ -7,6 +7,7 @@ import FeatureIconButton from '@/features/feature/FeatureIconButton';
 import FeatureId from '@/features/feature/FeatureId';
 import NewFeatureTextField from '@/features/feature/NewFeatureTextField';
 import { v4 as uuidv4 } from 'uuid';
+import { useCreateFeature } from '@/features/sites/useSitesQuery';
 
 const MotionFlex = motion.custom(Flex);
 
@@ -32,7 +33,9 @@ const reducer = (state, action) => {
   }
 };
 
-const NewFeature = ({ onFeatureAdd }) => {
+const NewFeature = ({ siteId }) => {
+  const { mutate: createFeatureMutation } = useCreateFeature();
+
   const [{ name, id, isFullWidth, isError }, dispatch] = React.useReducer(reducer, initialState);
 
   const onSubmit = (event) => {
@@ -42,7 +45,7 @@ const NewFeature = ({ onFeatureAdd }) => {
       return;
     }
 
-    onFeatureAdd({ id, name });
+    createFeatureMutation({ siteId, id, name });
     dispatch({ type: 'RESET' });
   };
 

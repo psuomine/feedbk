@@ -1,73 +1,55 @@
 import * as React from 'react';
-import { useGetSites, useCreateSite, useCreateFeature } from '@/features/sites/useSitesQuery';
-import { useToast } from '@/features/toast/ToastContext';
+import { Divider, Flex } from '@chakra-ui/react';
+import { useGetSites } from '@/features/sites/useSitesQuery';
 import Site from '@/features/sites/Site';
-import { Divider, Flex, Text } from '@chakra-ui/react';
 import FeatureList from '@/features/feature/FeatureList';
 import NewFeature from '@/features/feature/NewFeature';
-import SitesLayout from '@/features/sites/SitesLayout';
 import SitesSkeleton from '@/features/sites/SitesSkeleton';
-import Image from 'next/image';
+import SitesEmptyState from '@/features/sites/SitesEmptyState';
 import { PrimaryButton } from '@/components/buttons';
+import CreateSiteModal from '@/features/sites/CreateSiteModal';
+import { Layout } from '@/components/layout';
 
-// Move Dialog here and toggle state
 const Sites = () => {
-  const { showToast } = useToast();
-
+  const [isSitesDialogOpen, setSitesDialogOpen] = React.useState(false);
   const { isLoading, data: sites = [] } = useGetSites();
 
-  // Move this to inside create site dialog
-  const { mutate: createSiteMutation } = useCreateSite();
-
-  // Move this to new feature component
-  const { mutate: createFeatureMutation } = useCreateFeature();
-
-  const createSite = (payload) => {
-    createSiteMutation(payload);
-    showToast({ title: 'Successfully Created!' });
-  };
-
-  const createFeature = (siteId) => (feature) => {
-    const payload = { siteId, ...feature };
-    createFeatureMutation(payload);
-  };
+  const toggleDialog = () => setSitesDialogOpen((state) => !state);
 
   if (isLoading) {
-    return <SitesSkeleton createSite={createSite} />;
+    return (
+      <Layout>
+        <SitesSkeleton />
+      </Layout>
+    );
   }
 
   if (sites.length === 0) {
     return (
-      <SitesLayout createSite={createSite}>
-        <Flex flexDirection="column" alignItems="center" justifyContent="center">
-          <Image src="/sites-empty-illustration.svg" alt="Sites emtpy state illustration" height={230} width={200} />
-          <Text align="center" mt="4" fontWeight="medium" fontSize="2xl">
-            Start by creating a site
-          </Text>
-          <Text align="center" maxW="420px" mt="2" color="text.gray.600">
-            Creating a site and features makes working with feedback easier. With sites it makes easier to keep context
-            in mind.
-          </Text>
-          <PrimaryButton mt="6" onClick={() => {}}>
-            Add new site
-          </PrimaryButton>
-        </Flex>
-      </SitesLayout>
+      <Layout>
+        <SitesEmptyState toggleDialog={toggleDialog} />
+      </Layout>
     );
   }
 
   return (
-    <SitesLayout createSite={createSite}>
-      {sites.map((site) => (
-        <React.Fragment key={site.id}>
-          <Site name={site.name} description={site.description}>
-            <FeatureList features={site.features} />
-            <NewFeature onFeatureAdd={createFeature(site.id)} />
-          </Site>
-          <Divider />
-        </React.Fragment>
-      ))}
-    </SitesLayout>
+    <>
+      <Layout>
+        <Flex justifyContent="flex-end">
+          <PrimaryButton onClick={toggleDialog}>Add new site</PrimaryButton>
+        </Flex>
+        {sites.map(({ id, name, description, features }) => (
+          <React.Fragment key={id}>
+            <Site name={name} description={description}>
+              <FeatureList features={features} />
+              <NewFeature siteId={id} />
+            </Site>
+            <Divider />
+          </React.Fragment>
+        ))}
+      </Layout>
+      <CreateSiteModal isOpen={isSitesDialogOpen} toggleOpen={toggleDialog} />
+    </>
   );
 };
 

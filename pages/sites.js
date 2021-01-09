@@ -6,15 +6,11 @@ import FeatureList from '@/features/feature/FeatureList';
 import NewFeature from '@/features/feature/NewFeature';
 import SitesSkeleton from '@/features/sites/SitesSkeleton';
 import SitesEmptyState from '@/features/sites/SitesEmptyState';
-import { PrimaryButton } from '@/components/buttons';
 import CreateSiteModal from '@/features/sites/CreateSiteModal';
 import { Layout } from '@/components/layout';
 
 const Sites = () => {
-  const [isSitesDialogOpen, setSitesDialogOpen] = React.useState(false);
   const { isLoading, data: sites = [] } = useGetSites();
-
-  const toggleDialog = () => setSitesDialogOpen((state) => !state);
 
   if (isLoading) {
     return (
@@ -27,7 +23,7 @@ const Sites = () => {
   if (sites.length === 0) {
     return (
       <Layout>
-        <SitesEmptyState toggleDialog={toggleDialog} />
+        <SitesEmptyState />
       </Layout>
     );
   }
@@ -36,7 +32,7 @@ const Sites = () => {
     <>
       <Layout>
         <Flex justifyContent="flex-end">
-          <PrimaryButton onClick={toggleDialog}>Add new site</PrimaryButton>
+          <CreateSiteModal />
         </Flex>
         {sites.map(({ id, name, description, features }) => (
           <React.Fragment key={id}>
@@ -48,7 +44,6 @@ const Sites = () => {
           </React.Fragment>
         ))}
       </Layout>
-      <CreateSiteModal isOpen={isSitesDialogOpen} toggleOpen={toggleDialog} />
     </>
   );
 };

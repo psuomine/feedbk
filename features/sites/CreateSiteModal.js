@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { PrimaryButton, SecondaryButton } from '@/components/buttons';
+import { Flex } from '@chakra-ui/react';
+import { PrimaryButton } from '@/components/buttons';
 import { useCreateSite } from '@/features/sites/useSitesQuery';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Text,
-  Box
-} from '@chakra-ui/react';
 import { TextInput, TextareaInput } from '@/components/input';
 import { useToast } from '@/features/toast/ToastContext';
+import { v4 as uuidv4 } from 'uuid';
+import {
+  Modal,
+  ModalOpenButton,
+  ModalContent,
+  ModalBody,
+  ModalFooter,
+  ModalFooterButtons,
+  useModal
+} from '@/components/modal/Modal';
 
 const initialState = { name: '', description: '', isDirty: false, error: '' };
 
@@ -31,11 +31,12 @@ const reducer = (state, action) => {
   }
 };
 
-const CreateSiteModal = ({ isOpen, toggleOpen }) => {
+const CreateSiteModalContent = () => {
+  const [, setIsModalOpen] = useModal();
   const { showToast } = useToast();
   const [{ name, description, isDirty, error }, dispatch] = React.useReducer(reducer, initialState);
 
-  const { mutate: createFeatureMutation } = useCreateSite();
+  const { mutate: createFeatureMutation, isLoading } = useCreateSite();
 
   const validateName = () => {
     const error = name.length === 0 && isDirty ? 'Site name is required' : '';
@@ -44,33 +45,33 @@ const CreateSiteModal = ({ isOpen, toggleOpen }) => {
 
   const onValueChange = ({ target: { name, value } }) => dispatch({ type: 'INPUT_VALUE_CHANGE', name, value });
 
-  const onClose = () => {
+  const reset = () => {
     dispatch({ type: 'RESET' });
-    toggleOpen();
   };
+
+  // TODO add react.useEffect and wait for isSuccess and close the modal
 
   const onSubmit = (event) => {
     event.preventDefault();
-    createFeatureMutation({ name, description });
+    createFeatureMutation({ id: uuidv4(), name, description });
     showToast({ title: 'Successfully Created!' });
 
-    onClose();
+    setIsModalOpen(false);
+    reset();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
-      <ModalOverlay />
-      <ModalContent as="form" maxW="xl" onSubmit={onSubmit} mx={4}>
-        <Box px={[4, 6]}>
-          <ModalHeader pb={1} fontSize="lg" px={0}>
-            New site
-          </ModalHeader>
-          <Text fontSize="sm" lineHeight="short" color="text.gray.600">
-            Fill out the site information below to get started
-          </Text>
-        </Box>
-        <ModalCloseButton tabIndex="-1" top={[4, 6]} right={[4, 6]} onClick={onClose} />
-        <ModalBody my={2} px={[4, 6]}>
+    <>
+      <ModalOpenButton>
+        <PrimaryButton onClick={reset}>Add new site</PrimaryButton>
+      </ModalOpenButton>
+      <ModalContent
+        as="form"
+        title="New site"
+        subtitle="Fill out the site information below to get started"
+        onSubmit={onSubmit}
+      >
+        <ModalBody>
           <TextInput
             name="name"
             label="Site name"
@@ -80,19 +81,26 @@ const CreateSiteModal = ({ isOpen, toggleOpen }) => {
             error={error ? error : ''}
             onBlur={validateName}
           />
-          <Box mt={4}>
+          <Flex mt={4}>
             <TextareaInput name="description" label="Description" value={description} onChange={onValueChange} />
-          </Box>
+          </Flex>
         </ModalBody>
-        <ModalFooter backgroundColor="bg.gray.100" p={[4, 6]} borderBottomLeftRadius="md" borderBottomRightRadius="md">
-          <SecondaryButton mr={[4, 6]} onClick={onClose}>
-            Cancel
-          </SecondaryButton>
-          <PrimaryButton disabled={!isDirty || name.length === 0} type="submit">
-            Add this site
-          </PrimaryButton>
+        <ModalFooter>
+          <ModalFooterButtons
+            text="Add this site"
+            disabled={!isDirty || name.length === 0 || isLoading}
+            type="submit"
+          />
         </ModalFooter>
       </ModalContent>
+    </>
+  );
+};
+
+const CreateSiteModal = () => {
+  return (
+    <Modal>
+      <CreateSiteModalContent />
     </Modal>
   );
 };

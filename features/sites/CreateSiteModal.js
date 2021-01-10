@@ -4,14 +4,15 @@ import { PrimaryButton } from '@/components/buttons';
 import { useCreateSite } from '@/features/sites/useSitesQuery';
 import { TextInput, TextareaInput } from '@/components/input';
 import { useToast } from '@/features/toast/ToastContext';
-
+import { v4 as uuidv4 } from 'uuid';
 import {
   Modal,
   ModalOpenButton,
   ModalContent,
   ModalBody,
   ModalFooter,
-  ModalFooterButtons
+  ModalFooterButtons,
+  useModal
 } from '@/components/modal/Modal';
 
 const initialState = { name: '', description: '', isDirty: false, error: '' };
@@ -30,11 +31,12 @@ const reducer = (state, action) => {
   }
 };
 
-const CreateSiteModal = () => {
+const CreateSiteModalContent = () => {
+  const [, setIsModalOpen] = useModal();
   const { showToast } = useToast();
   const [{ name, description, isDirty, error }, dispatch] = React.useReducer(reducer, initialState);
 
-  const { mutate: createFeatureMutation } = useCreateSite();
+  const { mutate: createFeatureMutation, isLoading } = useCreateSite();
 
   const validateName = () => {
     const error = name.length === 0 && isDirty ? 'Site name is required' : '';
@@ -47,17 +49,19 @@ const CreateSiteModal = () => {
     dispatch({ type: 'RESET' });
   };
 
+  // TODO add react.useEffect and wait for isSuccess and close the modal
+
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log('onsubmit');
-    createFeatureMutation({ name, description });
+    createFeatureMutation({ id: uuidv4(), name, description });
     showToast({ title: 'Successfully Created!' });
 
+    setIsModalOpen(false);
     reset();
   };
 
   return (
-    <Modal>
+    <>
       <ModalOpenButton>
         <PrimaryButton onClick={reset}>Add new site</PrimaryButton>
       </ModalOpenButton>
@@ -82,9 +86,21 @@ const CreateSiteModal = () => {
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <ModalFooterButtons text="Add this site" disabled={!isDirty || name.length === 0} type="submit" />
+          <ModalFooterButtons
+            text="Add this site"
+            disabled={!isDirty || name.length === 0 || isLoading}
+            type="submit"
+          />
         </ModalFooter>
       </ModalContent>
+    </>
+  );
+};
+
+const CreateSiteModal = () => {
+  return (
+    <Modal>
+      <CreateSiteModalContent />
     </Modal>
   );
 };

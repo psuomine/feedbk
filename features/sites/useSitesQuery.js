@@ -1,6 +1,5 @@
 import { useQuery, useMutation } from 'react-query';
 import { fetcher } from '@/utils/fetcher';
-import { v4 as uuidv4 } from 'uuid';
 import { useAuth } from '@/features/auth/useAuth';
 import { useQueryClient } from 'react-query';
 
@@ -14,19 +13,8 @@ export const useCreateSite = () => {
   const { user } = useAuth();
 
   return useMutation((payload) => fetcher('/api/sites/create', user.token, payload), {
-    onMutate: (payload) => {
-      // Cancel all sites queries -> to prevent race conditions
-      queryClient.cancelQueries('sites');
-
-      const oldSites = queryClient.getQueryData('sites');
-      queryClient.setQueryData('sites', (oldSites) => [...oldSites, { ...payload, features: [] }]);
-
-      return () => queryClient.setQueryData('sites', oldSites);
-    },
-    onError: (error, values, rollback) => {
-      if (rollback) {
-        rollback();
-      }
+    onSuccess: (response, variables) => {
+      queryClient.setQueryData('sites', (oldSites) => [...oldSites, { ...variables, features: [] }]);
     },
     onSettled: () => queryClient.invalidateQueries('sites')
   });

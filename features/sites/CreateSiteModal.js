@@ -36,7 +36,7 @@ const CreateSiteModalContent = () => {
   const { showToast } = useToast();
   const [{ name, description, isDirty, error }, dispatch] = React.useReducer(reducer, initialState);
 
-  const { mutate: createFeatureMutation, isLoading } = useCreateSite();
+  const { mutate: createFeatureMutation, isLoading, isSuccess } = useCreateSite();
 
   const validateName = () => {
     const error = name.length === 0 && isDirty ? 'Site name is required' : '';
@@ -45,18 +45,20 @@ const CreateSiteModalContent = () => {
 
   const onValueChange = ({ target: { name, value } }) => dispatch({ type: 'INPUT_VALUE_CHANGE', name, value });
 
+  React.useEffect(() => {
+    if (isSuccess) {
+      showToast({ title: 'Successfully Created!' });
+      setIsModalOpen(false);
+    }
+  }, [isSuccess, setIsModalOpen, showToast]);
+
   const reset = () => {
     dispatch({ type: 'RESET' });
   };
 
-  // TODO add react.useEffect and wait for isSuccess and close the modal
-
   const onSubmit = (event) => {
     event.preventDefault();
     createFeatureMutation({ id: uuidv4(), name, description });
-    showToast({ title: 'Successfully Created!' });
-
-    setIsModalOpen(false);
     reset();
   };
 
@@ -90,6 +92,8 @@ const CreateSiteModalContent = () => {
             text="Add this site"
             disabled={!isDirty || name.length === 0 || isLoading}
             type="submit"
+            isLoading={isLoading}
+            loadingText="Add this site"
           />
         </ModalFooter>
       </ModalContent>

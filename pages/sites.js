@@ -29,22 +29,20 @@ const Sites = () => {
   }
 
   return (
-    <>
-      <Layout>
-        <Flex justifyContent="flex-end">
-          <CreateSiteModal />
-        </Flex>
-        {sites.map(({ id, name, description, features }) => (
-          <React.Fragment key={id}>
-            <Site name={name} description={description}>
-              <FeatureList features={features} />
-              <NewFeature siteId={id} />
-            </Site>
-            <Divider />
-          </React.Fragment>
-        ))}
-      </Layout>
-    </>
+    <Layout>
+      <Flex justifyContent="flex-end">
+        <CreateSiteModal />
+      </Flex>
+      {sites.map(({ id, name, description, features }) => (
+        <React.Fragment key={id}>
+          <Site name={name} description={description}>
+            <FeatureList features={features} />
+            <NewFeature siteId={id} />
+          </Site>
+          <Divider />
+        </React.Fragment>
+      ))}
+    </Layout>
   );
 };
 

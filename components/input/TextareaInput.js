@@ -9,7 +9,7 @@ const TextareaInput = ({ name, label, value, onChange, placeholder }) => {
       </FormLabel>
       <Textarea
         resize="none"
-        borderRadius="6px"
+        borderRadius="md"
         borderColor="border.default"
         fontSize="md"
         name={name}

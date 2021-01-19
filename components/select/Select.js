@@ -3,11 +3,18 @@ import { chakra, Flex, Text } from '@chakra-ui/react';
 import { useDetectOutsideClick } from '@/utils/useDetectOutsideClick';
 import { ChevronDownIcon } from '@/components/icons';
 
-const Select = ({ value, onChange, placeholder }) => {
+const Select = ({ value, onChange, placeholder, children }) => {
   const dropdownRef = React.useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef);
+  const selectedLabel = React.useRef();
 
   const handleOnClick = () => setIsActive((state) => !state);
+
+  const onClick = (label) => (event) => {
+    selectedLabel.current = label;
+    setIsActive(false);
+    onChange(event);
+  };
 
   return (
     <div>
@@ -26,14 +33,15 @@ const Select = ({ value, onChange, placeholder }) => {
           borderColor: 'border.focus'
         }}
       >
-        {value ? <Text>Value</Text> : <Text>{placeholder}</Text>}
+        {value ? <Text>{selectedLabel.current}</Text> : <Text>{placeholder}</Text>}
         <ChevronDownIcon />
       </Flex>
       {isActive && (
         <chakra.ul ref={dropdownRef} listStyleType="none">
-          <chakra.li bg="green.200">Yolo1</chakra.li>
-          <li>Yolo2</li>
-          <li>Yolo3</li>
+          {React.Children.map(children, (child) => {
+            const isSelected = value == child.props.value;
+            return React.cloneElement(child, { onClick: onClick(child.props.title), isSelected });
+          })}
         </chakra.ul>
       )}
     </div>

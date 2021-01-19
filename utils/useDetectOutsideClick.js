@@ -6,7 +6,7 @@ export const useDetectOutsideClick = (elementRef, initialState = false) => {
   React.useEffect(() => {
     const pageClickEvent = (event) => {
       if (elementRef.current !== null && !elementRef.current.contains(event.target)) {
-        console.log(event);
+        setIsActive(!isActive);
       }
     };
 

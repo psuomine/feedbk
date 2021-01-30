@@ -23,7 +23,7 @@ const SelectSite = ({ selectedId, onSelect }) => {
       </Select>
       <NewSelect placeholder="Select feature" onChange={onChange} value={selectedSite}>
         <NewSelectItem value="1" title="Test 1" />
-        <NewSelectItem value="2" title="Test 2" />
+        <NewSelectItem value="2" title="Test 2" subtitle="yolo" />
       </NewSelect>
     </>
   );

@@ -37,7 +37,15 @@ const Select = ({ value, onChange, placeholder, children }) => {
         <ChevronDownIcon />
       </Flex>
       {isActive && (
-        <chakra.ul ref={dropdownRef} listStyleType="none">
+        <chakra.ul
+          ref={dropdownRef}
+          listStyleType="none"
+          border="1px"
+          borderRadius="md"
+          borderColor="border.default"
+          mt="1"
+          boxShadow="base"
+        >
           {React.Children.map(children, (child) => {
             const isSelected = value == child.props.value;
             return React.cloneElement(child, { onClick: onClick(child.props.title), isSelected });

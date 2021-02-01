@@ -2,6 +2,32 @@ import * as React from 'react';
 import { chakra, Flex, Text } from '@chakra-ui/react';
 import { useDetectOutsideClick } from '@/utils/useDetectOutsideClick';
 import { ChevronDownIcon } from '@/components/icons';
+import { motion } from 'framer-motion';
+
+const ChakraUl = motion.custom(chakra.ul);
+const MotionBox = motion.custom(chakra.ul);
+
+const menuAnimate = {
+  enter: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.25
+    },
+    display: 'block'
+  },
+  exit: {
+    opacity: 0,
+    y: -4,
+    transition: {
+      duration: 0.3,
+      delay: 0.1
+    },
+    transitionEnd: {
+      display: 'none'
+    }
+  }
+};
 
 const Select = ({ value, onChange, placeholder, children }) => {
   const dropdownRef = React.useRef(null);
@@ -10,10 +36,10 @@ const Select = ({ value, onChange, placeholder, children }) => {
 
   const handleOnClick = () => setIsActive((state) => !state);
 
-  const onClick = (label) => (event) => {
+  const onClick = (label, value) => () => {
     selectedLabel.current = label;
     setIsActive(false);
-    onChange(event);
+    onChange(value);
   };
 
   return (
@@ -33,25 +59,29 @@ const Select = ({ value, onChange, placeholder, children }) => {
           borderColor: 'border.focus'
         }}
       >
-        {value ? <Text>{selectedLabel.current}</Text> : <Text>{placeholder}</Text>}
-        <ChevronDownIcon />
+        <Text>{value ? selectedLabel.current : placeholder}</Text>
+        <MotionBox animate={{ rotate: isActive ? 180 : 0 }} transition={{ duration: 0.25 }}>
+          <ChevronDownIcon />
+        </MotionBox>
       </Flex>
-      {isActive && (
-        <chakra.ul
-          ref={dropdownRef}
-          listStyleType="none"
-          border="1px"
-          borderRadius="md"
-          borderColor="border.default"
-          mt="1"
-          boxShadow="base"
-        >
-          {React.Children.map(children, (child) => {
-            const isSelected = value == child.props.value;
-            return React.cloneElement(child, { onClick: onClick(child.props.title), isSelected });
-          })}
-        </chakra.ul>
-      )}
+
+      <ChakraUl
+        ref={dropdownRef}
+        listStyleType="none"
+        border="1px"
+        borderRadius="md"
+        borderColor="border.default"
+        mt="1"
+        boxShadow="base"
+        initial="exit"
+        animate={isActive ? 'enter' : 'exit'}
+        variants={menuAnimate}
+      >
+        {React.Children.map(children, (child) => {
+          const isSelected = value == child.props.value;
+          return React.cloneElement(child, { onClick: onClick(child.props.title, child.props.value), isSelected });
+        })}
+      </ChakraUl>
     </div>
   );
 };

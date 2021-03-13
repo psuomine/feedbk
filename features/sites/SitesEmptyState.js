@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
-import { PrimaryButton } from '@/components/buttons';
+import { Button } from '@/components/buttons';
 import Image from 'next/image';
 
 const SitesEmptyState = () => {
@@ -14,9 +14,7 @@ const SitesEmptyState = () => {
         Creating a site and features makes working with feedback easier. With sites it makes easier to keep context in
         mind.
       </Text>
-      <PrimaryButton mt="6" onClick={() => {}}>
-        Add new site
-      </PrimaryButton>
+      <Button onClick={() => {}}>Add new site</Button>
     </Flex>
   );
 };

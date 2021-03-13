@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SecondaryButton, PrimaryButton } from '@/components/buttons';
+import { SecondaryButton, Button } from '@/components/buttons';
 import {
   Modal as ChakraModal,
   ModalOverlay as ChakraModalOverlay,
@@ -64,15 +64,15 @@ function ModalFooter({ children }) {
   );
 }
 
-function ModalFooterButtons({ text, isDisabled, ...props }) {
+function ModalFooterButtons({ text, disabled, ...props }) {
   return (
     <>
       <ModalCloseButton>
-        <SecondaryButton mr={[4, 6]}>Cancel</SecondaryButton>
+        <Button variant="secondary">Cancel</Button>
       </ModalCloseButton>
-      <PrimaryButton disabled={isDisabled} {...props}>
+      <Button disabled={disabled} {...props}>
         {text}
-      </PrimaryButton>
+      </Button>
     </>
   );
 }

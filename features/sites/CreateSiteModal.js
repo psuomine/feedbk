@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Flex } from '@chakra-ui/react';
-import { PrimaryButton } from '@/components/buttons';
+import { Button } from '@/components/buttons';
 import { useCreateSite } from '@/features/sites/useSitesQuery';
 import { TextInput, TextareaInput } from '@/components/input';
 import { useToast } from '@/features/toast/ToastContext';
@@ -65,7 +65,7 @@ const CreateSiteModalContent = () => {
   return (
     <>
       <ModalOpenButton>
-        <PrimaryButton onClick={reset}>Add new site</PrimaryButton>
+        <Button onClick={reset}>Add new site</Button>
       </ModalOpenButton>
       <ModalContent
         as="form"
